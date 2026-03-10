@@ -1,8 +1,12 @@
 function ProductCard({ product }) {
+    const imageUrl =
+    product.imagenUrl ||
+    "https://picsum.photos/400/200";
+
   return (
     <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
       <img
-        src={"https://picsum.photos/400/200"}
+        src={imageUrl}
         alt={product.nombre}
         className="h-52 w-full object-cover"
       />
