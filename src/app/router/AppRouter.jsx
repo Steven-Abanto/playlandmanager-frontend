@@ -1,10 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import PublicLayout from "../layout/public/PublicLayout";
-import HomePage from "../layout/public/home/pages/HomePage";
-
-function ProductosPage() {
-  return <div className="p-10 text-3xl">Página de Productos</div>;
-}
+import PublicLayout from "../../layout/public/PublicLayout";
+import HomePage from "../../modules/public/home/pages/HomePage";
+import ProductsPage from "../../modules/public/productos/pages/ProductsPage";
 
 function PromocionesPage() {
   return <div className="p-10 text-3xl">Página de Promociones</div>;
@@ -19,7 +16,7 @@ function AppRouter() {
     <Routes>
       <Route element={<PublicLayout />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/productos" element={<ProductosPage />} />
+        <Route path="/productos" element={<ProductsPage />} />
         <Route path="/promociones" element={<PromocionesPage />} />
       </Route>
 

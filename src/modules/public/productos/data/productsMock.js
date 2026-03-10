@@ -1,0 +1,58 @@
+const productsMock = [
+  {
+    id: 1,
+    nombre: "Combo Familiar",
+    descripcion: "Incluye pizza grande, bebidas y fichas para juegos.",
+    precio: 79.9,
+    categoria: "Combos",
+    imagen: "https://via.placeholder.com/400x250?text=Combo+Familiar",
+    activo: true,
+  },
+  {
+    id: 2,
+    nombre: "Pizza Personal",
+    descripcion: "Pizza individual para disfrutar durante tu visita.",
+    precio: 18.5,
+    categoria: "Comidas",
+    imagen: "https://via.placeholder.com/400x250?text=Pizza+Personal",
+    activo: true,
+  },
+  {
+    id: 3,
+    nombre: "Pack de Fichas",
+    descripcion: "Paquete de fichas para disfrutar de los juegos.",
+    precio: 25.0,
+    categoria: "Juegos",
+    imagen: "https://via.placeholder.com/400x250?text=Pack+de+Fichas",
+    activo: true,
+  },
+  {
+    id: 4,
+    nombre: "Combo Fiesta",
+    descripcion: "Promoción especial para celebraciones y cumpleaños.",
+    precio: 129.9,
+    categoria: "Promociones",
+    imagen: "https://via.placeholder.com/400x250?text=Combo+Fiesta",
+    activo: true,
+  },
+  {
+    id: 5,
+    nombre: "Hamburguesa Clásica",
+    descripcion: "Hamburguesa con papas y bebida.",
+    precio: 22.9,
+    categoria: "Comidas",
+    imagen: "https://via.placeholder.com/400x250?text=Hamburguesa",
+    activo: true,
+  },
+  {
+    id: 6,
+    nombre: "Recarga Premium",
+    descripcion: "Más fichas y beneficios para más tiempo de juego.",
+    precio: 45.0,
+    categoria: "Juegos",
+    imagen: "https://via.placeholder.com/400x250?text=Recarga+Premium",
+    activo: true,
+  },
+];
+
+export default productsMock;

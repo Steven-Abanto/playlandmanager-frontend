@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 
 const promos = [
-  { id: 1, title: "Promoción 1", target: "/promociones/1" },
-  { id: 2, title: "Promoción 2", target: "/promociones/2" },
-  { id: 3, title: "Promoción 3", target: "/productos/3" },
-  { id: 4, title: "Promoción 4", target: "/productos/4" },
+  { id: 1, title: "Promoción 1", image: "https://picsum.photos/1000/300", target: "/promociones/1" },
+  { id: 2, title: "Promoción 2", image: "https://picsum.photos/1000/300", target: "/promociones/2" },
+  { id: 3, title: "Promoción 3", image: "https://picsum.photos/1000/300", target: "/productos/3" },
+  { id: 4, title: "Promoción 4", image: "https://picsum.photos/1000/300", target: "/productos/4" },
 ];
 
 function PromoCarousel() {
@@ -35,7 +35,11 @@ function PromoCarousel() {
           onClick={() => navigate(promos[current].target)}
           className="flex h-80 flex-1 items-center justify-center border-2 border-black bg-white text-4xl font-bold"
         >
-          {promos[current].title}
+          {promos[current].image ? (
+            <img src={promos[current].image} alt={promos[current].title} className="h-full object-cover" />
+          ) : (
+            promos[current].title
+          )}
         </button>
 
         <button

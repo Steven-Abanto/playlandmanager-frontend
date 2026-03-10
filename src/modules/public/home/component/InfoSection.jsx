@@ -12,7 +12,11 @@ function InfoSection() {
       </div>
 
       <div className="flex h-72 items-center justify-center border-2 border-black bg-white text-4xl font-bold">
-        Foto
+        <img
+          src="../../../../../public/PlayLandPark.png"
+          alt="Imagen informativa"
+          className="h-full object-cover"
+        />
       </div>
     </div>
   );
