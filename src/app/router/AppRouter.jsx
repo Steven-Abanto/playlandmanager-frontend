@@ -3,10 +3,7 @@ import PublicLayout from "../../layout/public/PublicLayout";
 import HomePage from "../../modules/public/home/pages/HomePage";
 import ProductsPage from "../../modules/public/productos/pages/ProductsPage";
 import PromotionsPage from "../../modules/public/promociones/pages/PromotionsPage";
-
-function LoginPage() {
-  return <div className="p-10 text-3xl">Página de Login</div>;
-}
+import LoginPage from "../../modules/public/auth/pages/LoginPage";
 
 function AppRouter() {
   return (
