@@ -71,11 +71,11 @@ function ProductsPage() {
   }, [products, search, category]);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-blue-100">
       <section className="mx-auto max-w-7xl px-6 py-10">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-slate-900">Productos</h1>
-          <p className="mt-2 text-lg text-slate-600">
+          <h1 className="text-5xl font-black text-black">Productos</h1>
+          <p className="mt-2 text-lg font-semibold text-gray-700">
             Explora nuestro catálogo de productos, combos y experiencias.
           </p>
         </div>
@@ -91,16 +91,16 @@ function ProductsPage() {
         </div>
 
         {loading && (
-          <div className="rounded-2xl bg-white p-10 text-center shadow-sm">
-            <p className="text-lg font-medium text-slate-700">
+          <div className="rounded-2xl bg-white p-10 text-center shadow-lg">
+            <p className="text-lg font-bold text-black">
               Cargando productos...
             </p>
           </div>
         )}
 
         {!loading && error && (
-          <div className="rounded-2xl border border-red-200 bg-red-50 p-10 text-center">
-            <p className="text-lg font-medium text-red-700">{error}</p>
+          <div className="rounded-2xl bg-red-100 p-10 text-center">
+            <p className="text-lg font-bold text-red-700">{error}</p>
           </div>
         )}
 

@@ -7,7 +7,7 @@ const INITIAL_FORM = {
   remember: false,
 };
 
-function LoginPage() {
+function LoginTrabajadoresPage() {
   const [form, setForm] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState({ type: "idle", message: "" });
@@ -17,7 +17,7 @@ function LoginPage() {
   const helperText = useMemo(() => {
     return status.type === "success"
       ? "Tu formulario quedó listo para conectarse a la API de autenticación."
-      : "Ingresa con tu cuenta para revisar tu perfil, compras y promociones personalizadas.";
+      : "Ingresa con tu cuenta de trabajador para acceder al panel de administración.";
   }, [status.type]);
 
   const handleChange = (event) => {
@@ -97,21 +97,21 @@ function LoginPage() {
 
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <span className="inline-flex rounded-full bg-yellow-400 px-4 py-1 text-sm font-black text-blue-900">
-                  Acceso clientes
-                </span>
                 <button
-                  onClick={() => navigate("/login-trabajadores")}
+                  onClick={() => navigate("/login")}
                   className="inline-flex rounded-full bg-white/20 px-4 py-1 text-sm font-bold text-white hover:bg-white/30 transition"
                 >
-                  Acceso trabajadores
+                  Acceso clientes
                 </button>
+                <span className="inline-flex rounded-full bg-yellow-400 px-4 py-1 text-sm font-black text-blue-900">
+                  Acceso trabajadores
+                </span>
               </div>
               <h1 className="text-5xl font-black leading-tight sm:text-6xl text-white">
-                Inicia sesión en Play Land Manager
+                Panel de Trabajadores
               </h1>
               <p className="max-w-xl text-lg leading-7 text-blue-100 sm:text-xl">
-                Gestiona tus reservas, consulta promociones activas y mantente al día con las novedades del parque.
+                Accede al panel de control para gestionar el parque, promociones y consultar reportes.
               </p>
             </div>
           </div>
@@ -128,19 +128,19 @@ function LoginPage() {
             <article className="rounded-2xl bg-white/10 p-4 backdrop-blur">
               <p className="text-sm font-bold text-yellow-300">Beneficio 01</p>
               <p className="mt-2 text-sm leading-6 text-white">
-                Revisa productos y experiencias destacadas con acceso rápido.
+                Gestiona productos, promociones y disponibilidad del parque.
               </p>
             </article>
             <article className="rounded-2xl bg-white/10 p-4 backdrop-blur">
               <p className="text-sm font-bold text-yellow-300">Beneficio 02</p>
               <p className="mt-2 text-sm leading-6 text-white">
-                Guarda tus datos para futuras compras y visitas al parque.
+                Visualiza reservas y consulta el historial de transacciones.
               </p>
             </article>
             <article className="rounded-2xl bg-white/10 p-4 backdrop-blur">
               <p className="text-sm font-bold text-yellow-300">Beneficio 03</p>
               <p className="mt-2 text-sm leading-6 text-white">
-                Recibe promociones personalizadas y novedades exclusivas.
+                Accede a reportes detallados y análisis de desempeño.
               </p>
             </article>
           </div>
@@ -152,7 +152,7 @@ function LoginPage() {
               <p className="text-sm font-black uppercase tracking-[0.2em] text-red-500">
                 Bienvenido
               </p>
-              <h2 className="text-4xl font-black text-black">Accede a tu cuenta</h2>
+              <h2 className="text-4xl font-black text-black">Acceso de trabajador</h2>
               <p className="text-sm leading-6 text-gray-700">{helperText}</p>
             </div>
 
@@ -234,10 +234,6 @@ function LoginPage() {
                 {isSubmitting ? "Validando acceso..." : "Iniciar sesión"}
               </button>
             </form>
-
-            <div className="mt-6 rounded-2xl bg-yellow-100 px-4 py-4 text-sm leading-6 text-black font-semibold">
-              ¿Aún no tienes cuenta? <span className="text-red-600">Haz click aquí</span>
-            </div>
           </div>
         </section>
       </div>
@@ -245,9 +241,7 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
-
-
+export default LoginTrabajadoresPage;
 
 
 

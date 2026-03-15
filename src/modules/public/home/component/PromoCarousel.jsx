@@ -22,41 +22,41 @@ function PromoCarousel() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-6">
-      <div className="flex w-full items-center justify-between gap-6">
-        <button
-          onClick={prevSlide}
-          className="rounded border-4 border-red-500 px-4 py-3 text-3xl text-yellow-300 bg-red-500"
-        >
-          ←
-        </button>
-
+    <div className="flex flex-col items-center w-full">
+      <div className="relative w-full group">
         <button
           onClick={() => navigate(promos[current].target)}
-          className="flex h-80 flex-1 items-center justify-center border-2 border-black bg-white text-4xl font-bold"
+          className="flex w-full h-[500px] items-center justify-center bg-white text-4xl font-bold overflow-hidden transition"
         >
           {promos[current].image ? (
-            <img src={promos[current].image} alt={promos[current].title} className="h-full object-cover" />
+            <img src={promos[current].image} alt={promos[current].title} className="h-full w-full object-cover" />
           ) : (
             promos[current].title
           )}
         </button>
 
         <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-gray-400 px-4 py-3 text-2xl font-bold text-white hover:bg-gray-500 transition opacity-0 group-hover:opacity-100 cursor-pointer"
+        >
+          ←
+        </button>
+
+        <button
           onClick={nextSlide}
-          className="rounded border-4 border-red-500 px-4 py-3 text-3xl text-yellow-300 bg-red-500"
+          className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-gray-400 px-4 py-3 text-2xl font-bold text-white hover:bg-gray-500 transition opacity-0 group-hover:opacity-100 cursor-pointer"
         >
           →
         </button>
       </div>
 
-      <div className="flex gap-4 content-center">
+      <div className="flex gap-3 mt-4 pb-4">
         {promos.map((promo, index) => (
           <button
             key={promo.id}
             onClick={() => setCurrent(index)}
-            className={`rounded-full border-2 border-black ${
-              current === index ? "h-5 w-5 bg-red-500" : "h-4 w-4 bg-white"
+            className={`rounded-full transition cursor-pointer ${
+              current === index ? "h-4 w-4 bg-yellow-400" : "h-3 w-3 bg-gray-400"
             }`}
           />
         ))}

@@ -3,8 +3,17 @@ function ProductCard({ product }) {
     product.imagenUrl ||
     "https://picsum.photos/400/200";
 
+  const categories = {
+    "Paseos": "bg-cyan-400 text-black",
+    "Juegos": "bg-red-500 text-white",
+    "Comedores": "bg-yellow-400 text-black",
+    "Tienda": "bg-purple-500 text-white"
+  };
+
+  const categoryColor = categories[product.categoria] || "bg-blue-500 text-white";
+
   return (
-    <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+    <article className="overflow-hidden rounded-2xl bg-white shadow-lg transition hover:-translate-y-2 hover:shadow-2xl">
       <img
         src={imageUrl}
         alt={product.nombre}
@@ -12,24 +21,24 @@ function ProductCard({ product }) {
       />
 
       <div className="p-5">
-        <span className="inline-block rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700">
+        <span className={`inline-block rounded-full px-3 py-1 text-sm font-bold ${categoryColor}`}>
           {product.categoria}
         </span>
 
-        <h3 className="mt-3 text-xl font-bold text-slate-900">
+        <h3 className="mt-3 text-xl font-black text-black">
           {product.nombre}
         </h3>
 
-        <p className="mt-2 line-clamp-3 text-sm text-slate-600">
+        <p className="mt-2 line-clamp-3 text-sm text-gray-700">
           {product.descripcion}
         </p>
 
         <div className="mt-5 flex items-center justify-between">
-          <span className="text-lg font-semibold text-slate-900">
+          <span className="text-lg font-black text-yellow-500">
             S/ {product.precio.toFixed(2)}
           </span>
 
-          <button className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-700">
+          <button className="rounded-xl bg-cyan-400 px-4 py-2 text-sm font-bold text-black transition hover:bg-cyan-500 shadow-md">
             Ver más
           </button>
         </div>

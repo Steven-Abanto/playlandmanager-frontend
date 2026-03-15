@@ -3,8 +3,8 @@ import InfoSection from "../component/InfoSection";
 
 function HomePage() {
   return (
-    <div className="bg-neutral-100">
-      <section className="mx-auto max-w-7xl px-6 py-10">
+    <div className="bg-gradient-to-br from-blue-100 via-yellow-100 to-red-100 min-h-screen">
+      <section className="w-full">
         <PromoCarousel />
       </section>
 

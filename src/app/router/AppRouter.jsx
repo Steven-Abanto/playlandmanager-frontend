@@ -4,6 +4,7 @@ import HomePage from "../../modules/public/home/pages/HomePage";
 import ProductsPage from "../../modules/public/productos/pages/ProductsPage";
 import PromotionsPage from "../../modules/public/promociones/pages/PromotionsPage";
 import LoginPage from "../../modules/public/auth/pages/LoginPage";
+import LoginTrabajadoresPage from "../../modules/public/auth/pages/LoginTrabajadoresPage";
 
 function AppRouter() {
   return (
@@ -15,6 +16,7 @@ function AppRouter() {
       </Route>
 
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/login-trabajadores" element={<LoginTrabajadoresPage />} />
     </Routes>
   );
 }

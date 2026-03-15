@@ -68,16 +68,16 @@ function PromotionsPage() {
   }, [promotions, search, status]);
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <section className="mx-auto max-w-7xl px-6 py-10">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-slate-900">Promociones</h1>
-          <p className="mt-2 text-lg text-slate-600">
+    <div className="min-h-screen bg-red-100">
+      <section className="mx-auto max-w-7xl px-6 py-4">
+        <div className="mb-6">
+          <h1 className="text-5xl font-black text-black">Promociones</h1>
+          <p className="mt-2 text-lg font-semibold text-gray-700">
             Descubre nuestras promociones activas y encuentra la mejor opción para tu visita.
           </p>
         </div>
 
-        <div className="mb-8">
+        <div className="mb-6">
           <PromotionFilters
             search={search}
             onSearchChange={setSearch}
@@ -87,16 +87,16 @@ function PromotionsPage() {
         </div>
 
         {loading && (
-          <div className="rounded-2xl bg-white p-10 text-center shadow-sm">
-            <p className="text-lg font-medium text-slate-700">
+          <div className="rounded-2xl bg-white p-10 text-center shadow-lg">
+            <p className="text-lg font-bold text-black">
               Cargando promociones...
             </p>
           </div>
         )}
 
         {!loading && error && (
-          <div className="rounded-2xl border border-red-200 bg-red-50 p-10 text-center">
-            <p className="text-lg font-medium text-red-700">{error}</p>
+          <div className="rounded-2xl bg-red-200 p-10 text-center">
+            <p className="text-lg font-bold text-red-800">{error}</p>
           </div>
         )}
 

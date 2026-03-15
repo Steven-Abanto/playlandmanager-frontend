@@ -19,7 +19,7 @@ function PromotionCard({ promotion }) {
   };
 
   return (
-    <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+    <article className="overflow-hidden rounded-2xl bg-white shadow-lg transition hover:-translate-y-2 hover:shadow-2xl">
       <img
         src={imageUrl}
         alt={promotion.nombre || promotion.codigo || "Promoción"}
@@ -27,20 +27,20 @@ function PromotionCard({ promotion }) {
       />
 
       <div className="p-5">
-        <span className="inline-block rounded-full bg-amber-100 px-3 py-1 text-sm font-medium text-amber-700">
+        <span className="inline-block rounded-full bg-red-500 px-3 py-1 text-sm font-bold text-white">
           Promoción
         </span>
 
-        <h3 className="mt-3 text-xl font-bold text-slate-900">
+        <h3 className="mt-3 text-xl font-black text-black">
           {promotion.nombre || promotion.codigo || "Promoción disponible"}
         </h3>
 
-        <p className="mt-2 text-sm text-slate-600">
+        <p className="mt-2 text-sm text-gray-700">
           {promotion.descripcion || "Promoción especial disponible por tiempo limitado."}
         </p>
 
         <div className="mt-5 flex items-center justify-between">
-          <span className="text-lg font-semibold text-slate-900">
+          <span className="text-lg font-black text-yellow-500">
             {promotion.descuentoPorcentaje
               ? `${promotion.descuentoPorcentaje}% dscto.`
               : promotion.montoMax
@@ -50,7 +50,7 @@ function PromotionCard({ promotion }) {
 
           <button
             onClick={handleClick}
-            className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-700"
+            className="rounded-xl bg-yellow-400 px-4 py-2 text-sm font-bold text-black transition hover:bg-yellow-500 shadow-md"
           >
             Ver más
           </button>
