@@ -16,7 +16,7 @@ function ProductFilters({
             type="text"
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Ej. pizza, combo, fichas..."
+            placeholder="Ej. tickets, combo, pizza..."
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-slate-500"
           />
         </div>

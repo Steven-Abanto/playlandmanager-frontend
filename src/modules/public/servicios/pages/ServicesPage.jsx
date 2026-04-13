@@ -1,17 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import ProductFilters from "../components/ProductFilters";
-import ProductGrid from "../components/ProductGrid";
-import { getProducts } from "../services/productService";
+import ProductFilters from "../../productos/components/ProductFilters";
+import ProductGrid from "../../productos/components/ProductGrid";
+import { getServices } from "../services/serviceService";
 
-function ProductsPage() {
+function ServicesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const initialSearch = searchParams.get("search") || "";
   const [search, setSearch] = useState(initialSearch);
   const [category, setCategory] = useState("Todas");
 
-  const [products, setProducts] = useState([]);
+  const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -30,54 +30,54 @@ function ProductsPage() {
   }, [search, setSearchParams]);
 
   useEffect(() => {
-    async function loadProducts() {
+    async function loadServices() {
       try {
         setLoading(true);
         setError("");
 
-        const data = await getProducts();
-        setProducts(Array.isArray(data) ? data : []);
+        const data = await getServices();
+        setServices(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error(err);
-        setError("No se pudieron cargar los productos.");
-        setProducts([]);
+        setError("No se pudieron cargar los servicios.");
+        setServices([]);
       } finally {
         setLoading(false);
       }
     }
 
-    loadProducts();
+    loadServices();
   }, []);
 
   const categories = useMemo(() => {
-    return [...new Set(products.map((product) => product.categoria).filter(Boolean))];
-  }, [products]);
+    return [...new Set(services.map((service) => service.categoria).filter(Boolean))];
+  }, [services]);
 
-  const filteredProducts = useMemo(() => {
-    return products.filter((product) => {
-      const descripcion = product.descripcion || "";
-      const categoriaProducto = product.categoria || "";
-      const marca = product.marca || "";
-      const activo = product.activo ?? true;
+  const filteredServices = useMemo(() => {
+    return services.filter((service) => {
+      const descripcion = service.descripcion || "";
+      const categoriaServicio = service.categoria || "";
+      const marca = service.marca || "";
+      const activo = service.activo ?? true;
 
       const matchesSearch =
         descripcion.toLowerCase().includes(search.toLowerCase()) ||
         marca.toLowerCase().includes(search.toLowerCase());
 
       const matchesCategory =
-        category === "Todas" || categoriaProducto === category;
+        category === "Todas" || categoriaServicio === category;
 
       return activo && matchesSearch && matchesCategory;
     });
-  }, [products, search, category]);
+  }, [services, search, category]);
 
   return (
     <div className="min-h-screen bg-blue-100">
       <section className="mx-auto max-w-7xl px-6 py-10">
         <div className="mb-8">
-          <h1 className="text-5xl font-black text-black">Productos</h1>
+          <h1 className="text-5xl font-black text-black">Servicios</h1>
           <p className="mt-2 text-lg font-semibold text-gray-700">
-            Explora nuestro catálogo de productos disponibles en Play Land.
+            Explora nuestras experiencias, salas, actividades y servicios disponibles.
           </p>
         </div>
 
@@ -93,7 +93,7 @@ function ProductsPage() {
 
         {loading && (
           <div className="rounded-2xl bg-white p-10 text-center shadow-lg">
-            <p className="text-lg font-bold text-black">Cargando productos...</p>
+            <p className="text-lg font-bold text-black">Cargando servicios...</p>
           </div>
         )}
 
@@ -103,10 +103,10 @@ function ProductsPage() {
           </div>
         )}
 
-        {!loading && !error && <ProductGrid products={filteredProducts} />}
+        {!loading && !error && <ProductGrid products={filteredServices} />}
       </section>
     </div>
   );
 }
 
-export default ProductsPage;
+export default ServicesPage;

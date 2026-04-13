@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { registerClienteRequest } from "../../../../auth/AuthService";
+import { registerClienteRequest } from "../../../../auth/authService";
 
 const INITIAL_FORM = {
   tipoDoc: "DNI",

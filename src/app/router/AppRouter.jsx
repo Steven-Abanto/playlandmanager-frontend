@@ -10,6 +10,9 @@ import ProfilePage from "../../modules/private/profile/pages/ProfilePage";
 import EmpleadoPanelPage from "../../modules/private/empleado/pages/EmpleadoPanelPage";
 import AdminPanelPage from "../../modules/private/admin/pages/AdminPanelPage";
 import AdminUsuariosPage from "../../modules/private/admin/pages/AdminUsuariosPage";
+import AdminProductosPage from "../../modules/private/admin/pages/AdminProductosPage";
+import AdminPromocionesPage from "../../modules/private/admin/pages/AdminPromocionesPage";
+import ServicesPage from "../../modules/public/servicios/pages/ServicesPage";
 
 import PrivateRoute from "../../auth/PrivateRoute.jsx";
 
@@ -19,6 +22,7 @@ function AppRouter() {
       <Route element={<PublicLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/productos" element={<ProductsPage />} />
+        <Route path="/servicios" element={<ServicesPage />} />
         <Route path="/promociones" element={<PromotionsPage />} />
       </Route>
 
@@ -57,6 +61,24 @@ function AppRouter() {
         element={
           <PrivateRoute roles={["ADMIN"]}>
             <AdminUsuariosPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/admin/productos"
+        element={
+          <PrivateRoute roles={["ADMIN"]}>
+            <AdminProductosPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/admin/promociones"
+        element={
+          <PrivateRoute roles={["ADMIN"]}>
+            <AdminPromocionesPage />
           </PrivateRoute>
         }
       />

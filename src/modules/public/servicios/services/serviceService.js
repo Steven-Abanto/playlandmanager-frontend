@@ -1,9 +1,9 @@
 import api from "../../../../api/axios";
 
-export async function getProducts(params = {}) {
+export async function getServices(params = {}) {
   const response = await api.get("/api/catalogo/productos/type", {
     params: {
-      esServicio: false,
+      esServicio: true,
       onlyActive: true,
       ...params,
     },
