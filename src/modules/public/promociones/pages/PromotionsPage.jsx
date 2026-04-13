@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { getPromotions } from "../services/promotionService";
+import { getPromociones } from "../services/promocionService";
 import PromotionFilters from "../components/PromotionFilters";
 import PromotionGrid from "../components/PromotionGrid";
 
@@ -35,9 +35,10 @@ function PromotionsPage() {
         setLoading(true);
         setError("");
 
-        const data = await getPromotions();
+        const data = await getPromociones(true);
         setPromotions(Array.isArray(data) ? data : []);
       } catch (err) {
+        console.error(err);
         setError("No se pudieron cargar las promociones.");
         setPromotions([]);
       } finally {
@@ -100,7 +101,15 @@ function PromotionsPage() {
           </div>
         )}
 
-        {!loading && !error && (
+        {!loading && !error && filteredPromotions.length === 0 && (
+          <div className="rounded-2xl bg-white p-10 text-center shadow-lg">
+            <p className="text-lg font-bold text-black">
+              No se encontraron promociones.
+            </p>
+          </div>
+        )}
+
+        {!loading && !error && filteredPromotions.length > 0 && (
           <PromotionGrid promotions={filteredPromotions} />
         )}
       </section>
