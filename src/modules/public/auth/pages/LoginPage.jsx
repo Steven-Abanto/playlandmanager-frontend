@@ -1,9 +1,10 @@
 import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../../../auth/AuthContext";
 
 const INITIAL_FORM = {
-  email: "",
-  password: "",
+  usuario: "",
+  contrasena: "",
   remember: false,
 };
 
@@ -12,11 +13,13 @@ function LoginPage() {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState({ type: "idle", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const helperText = useMemo(() => {
     return status.type === "success"
-      ? "Tu formulario quedó listo para conectarse a la API de autenticación."
+      ? "Inicio de sesión exitoso. Redirigiendo..."
       : "Ingresa con tu cuenta para revisar tu perfil, compras y promociones personalizadas.";
   }, [status.type]);
 
@@ -41,16 +44,14 @@ function LoginPage() {
   const validateForm = () => {
     const nextErrors = {};
 
-    if (!form.email.trim()) {
-      nextErrors.email = "Ingresa tu correo electrónico.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      nextErrors.email = "Escribe un correo válido.";
+    if (!form.usuario.trim()) {
+      nextErrors.usuario = "Ingresa tu usuario.";
     }
 
-    if (!form.password.trim()) {
-      nextErrors.password = "Ingresa tu contraseña.";
-    } else if (form.password.trim().length < 6) {
-      nextErrors.password = "La contraseña debe tener al menos 6 caracteres.";
+    if (!form.contrasena.trim()) {
+      nextErrors.contrasena = "Ingresa tu contraseña.";
+    } else if (form.contrasena.trim().length < 6) {
+      nextErrors.contrasena = "La contraseña debe tener al menos 6 caracteres.";
     }
 
     return nextErrors;
@@ -73,14 +74,27 @@ function LoginPage() {
     setIsSubmitting(true);
     setStatus({ type: "idle", message: "" });
 
-    await new Promise((resolve) => window.setTimeout(resolve, 700));
+    try {
+      const data = await login({
+        usuario: form.usuario,
+        contrasena: form.contrasena,
+      });
 
-    setIsSubmitting(false);
-    setStatus({
-      type: "success",
-      message:
-        "Vista de login lista. El siguiente paso es conectarla con tu servicio de autenticación.",
-    });
+      setStatus({
+        type: "success",
+        message: "Inicio de sesión exitoso.",
+      });
+
+      navigate("/");
+    } catch (error) {
+      setStatus({
+        type: "error",
+        message:
+          error.response?.data?.message || "Error al iniciar sesión.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -98,18 +112,14 @@ function LoginPage() {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <span className="inline-flex rounded-full bg-yellow-400 px-4 py-1 text-sm font-black text-blue-900">
-                  Acceso clientes
+                  Acceso único
                 </span>
-                <button
-                  onClick={() => navigate("/login-trabajadores")}
-                  className="inline-flex rounded-full bg-white/20 px-4 py-1 text-sm font-bold text-white hover:bg-white/30 transition"
-                >
-                  Acceso trabajadores
-                </button>
               </div>
+
               <h1 className="text-5xl font-black leading-tight sm:text-6xl text-white">
                 Inicia sesión en Play Land Manager
               </h1>
+
               <p className="max-w-xl text-lg leading-7 text-blue-100 sm:text-xl">
                 Gestiona tus reservas, consulta promociones activas y mantente al día con las novedades del parque.
               </p>
@@ -158,27 +168,27 @@ function LoginPage() {
 
             <form className="space-y-5" onSubmit={handleSubmit} noValidate>
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-black text-black">
-                  Correo electrónico
+                <label htmlFor="usuario" className="text-sm font-black text-black">
+                  Usuario
                 </label>
                 <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  value={form.email}
+                  id="usuario"
+                  name="usuario"
+                  type="text"
+                  autoComplete="username"
+                  value={form.usuario}
                   onChange={handleChange}
-                  placeholder="correo@ejemplo.com"
+                  placeholder="Ingresa tu usuario"
                   className="w-full rounded-2xl px-4 py-3 text-base font-semibold outline-none transition focus:ring-4 focus:ring-cyan-200"
                 />
-                {errors.email && (
-                  <p className="text-sm font-bold text-red-600">{errors.email}</p>
+                {errors.usuario && (
+                  <p className="text-sm font-bold text-red-600">{errors.usuario}</p>
                 )}
               </div>
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between gap-3">
-                  <label htmlFor="password" className="text-sm font-black text-black">
+                  <label htmlFor="contrasena" className="text-sm font-black text-black">
                     Contraseña
                   </label>
                   <button
@@ -189,17 +199,17 @@ function LoginPage() {
                   </button>
                 </div>
                 <input
-                  id="password"
-                  name="password"
+                  id="contrasena"
+                  name="contrasena"
                   type="password"
                   autoComplete="current-password"
-                  value={form.password}
+                  value={form.contrasena}
                   onChange={handleChange}
                   placeholder="••••••••"
                   className="w-full rounded-2xl px-4 py-3 text-base font-semibold outline-none transition focus:ring-4 focus:ring-cyan-200"
                 />
-                {errors.password && (
-                  <p className="text-sm font-bold text-red-600">{errors.password}</p>
+                {errors.contrasena && (
+                  <p className="text-sm font-bold text-red-600">{errors.contrasena}</p>
                 )}
               </div>
 
@@ -246,9 +256,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-
-
-
-
-
-
