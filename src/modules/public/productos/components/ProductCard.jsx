@@ -1,47 +1,46 @@
-function ProductCard({ product }) {
-  const imageUrl = product.imagenUrl || "https://picsum.photos/400/200";
+function formatMoney(value) {
+  return `S/ ${Number(value || 0).toFixed(2)}`;
+}
 
-  const categories = {
-    Paseos: "bg-cyan-400 text-black",
-    Juegos: "bg-red-500 text-white",
-    Comedores: "bg-yellow-400 text-black",
-    Tienda: "bg-purple-500 text-white",
-    Tickets: "bg-green-400 text-black",
-    Servicios: "bg-orange-400 text-black",
-  };
-
-  const categoryColor = categories[product.categoria] || "bg-blue-500 text-white";
-
+function ProductCard({ product, onAddToCart, isAdding = false }) {
   return (
-    <article className="overflow-hidden rounded-2xl bg-white shadow-lg transition hover:-translate-y-2 hover:shadow-2xl">
-      <img
-        src={imageUrl}
-        alt={product.descripcion}
-        className="h-52 w-full object-cover"
-      />
+    <article className="overflow-hidden rounded-[2rem] bg-white shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
+      <div className="h-56 w-full overflow-hidden bg-gray-100">
+        <img
+          src={product.imagenUrl || "/images/product-default.jpg"}
+          alt={product.descripcion}
+          className="h-full w-full object-cover"
+          onError={(e) => {
+            e.currentTarget.src = "/images/product-default.jpg";
+          }}
+        />
+      </div>
 
-      <div className="p-5">
-        <span
-          className={`inline-block rounded-full px-3 py-1 text-sm font-bold ${categoryColor}`}
-        >
-          {product.categoria || "General"}
-        </span>
+      <div className="space-y-4 p-6">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.15em] text-cyan-500">
+            {product.categoria || "Producto"}
+          </p>
+          <h3 className="mt-1 text-2xl font-black text-black">
+            {product.descripcion}
+          </h3>
+          <p className="mt-2 text-sm font-semibold text-gray-600">
+            {product.marca || "Play Land"}
+          </p>
+        </div>
 
-        <h3 className="mt-3 text-xl font-black text-black">
-          {product.descripcion}
-        </h3>
-
-        <p className="mt-2 text-sm font-semibold text-gray-700">
-          Marca: {product.marca || "Play Land"}
-        </p>
-
-        <div className="mt-5 flex items-center justify-between">
-          <span className="text-lg font-black text-yellow-500">
-            S/ {Number(product.precio).toFixed(2)}
+        <div className="flex items-center justify-between gap-4">
+          <span className="text-2xl font-black text-black">
+            {formatMoney(product.precio)}
           </span>
 
-          <button className="rounded-xl bg-cyan-400 px-4 py-2 text-sm font-bold text-black shadow-md transition hover:bg-cyan-500">
-            Ver más
+          <button
+            type="button"
+            onClick={() => onAddToCart?.(product)}
+            disabled={isAdding}
+            className="rounded-2xl bg-cyan-500 px-4 py-2 font-black text-white transition hover:bg-cyan-600 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {isAdding ? "Agregando..." : "Agregar"}
           </button>
         </div>
       </div>

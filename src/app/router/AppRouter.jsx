@@ -14,6 +14,8 @@ import AdminProductosPage from "../../modules/private/admin/pages/AdminProductos
 import AdminPromocionesPage from "../../modules/private/admin/pages/AdminPromocionesPage";
 import ServicesPage from "../../modules/public/servicios/pages/ServicesPage";
 
+import CartPage from "../../modules/private/cart/pages/CartPage";
+
 import PrivateRoute from "../../auth/PrivateRoute.jsx";
 
 function AppRouter() {
@@ -79,6 +81,15 @@ function AppRouter() {
         element={
           <PrivateRoute roles={["ADMIN"]}>
             <AdminPromocionesPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/carrito"
+        element={
+          <PrivateRoute>
+            <CartPage />
           </PrivateRoute>
         }
       />

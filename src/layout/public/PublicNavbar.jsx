@@ -35,16 +35,18 @@ function PublicNavbar() {
             className="h-24 w-auto"
           />
         </button>
-
-        <form onSubmit={handleSubmit} className="flex-1 max-w-xl">
-          <input
-            type="text"
-            placeholder="Buscar productos o promociones..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-full px-5 py-2 text-base font-semibold outline-none transition focus:ring-4 focus:ring-yellow-200"
-          />
-        </form>
+        
+        {isAuthenticated && (hasRole("EMPLEADO") || hasRole("CLIENTE")) && (   
+          <form onSubmit={handleSubmit} className="flex-1 max-w-xl">
+            <input
+              type="text"
+              placeholder="Buscar productos o promociones..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full rounded-full px-5 py-2 text-base font-semibold outline-none transition focus:ring-4 focus:ring-yellow-200"
+            />
+          </form>
+        )}
 
         <nav className="flex items-center gap-4 text-base font-bold text-white">
           <button
@@ -68,6 +70,15 @@ function PublicNavbar() {
             Promociones
           </button>
 
+
+          {isAuthenticated && (hasRole("EMPLEADO") || hasRole("CLIENTE")) && (          
+            <button
+              onClick={() => navigate("/carrito")}
+              className="transition hover:opacity-80"
+            >
+              Carrito
+            </button>
+          )}
 
           {isAuthenticated && (hasRole("EMPLEADO") || hasRole("ADMIN")) && (
             <button

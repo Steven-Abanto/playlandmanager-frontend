@@ -3,9 +3,15 @@ import { useSearchParams } from "react-router-dom";
 import ProductFilters from "../components/ProductFilters";
 import ProductGrid from "../components/ProductGrid";
 import { getProducts } from "../services/productService";
+import { useAuth } from "../../../../auth/AuthContext";
+import {
+  addCartItem,
+  getOrCreateActiveCart,
+} from "../../../private/cart/services/cartService";
 
 function ProductsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { isAuthenticated, user } = useAuth();
 
   const initialSearch = searchParams.get("search") || "";
   const [search, setSearch] = useState(initialSearch);
@@ -14,6 +20,7 @@ function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [addingProductId, setAddingProductId] = useState(null);
 
   useEffect(() => {
     const delay = setTimeout(() => {
@@ -71,6 +78,48 @@ function ProductsPage() {
     });
   }, [products, search, category]);
 
+  const handleAddToCart = async (product) => {
+    try {
+      if (!isAuthenticated) {
+        alert("Debes iniciar sesión para agregar productos al carrito.");
+        return;
+      }
+
+      const rol = user?.rolPrincipal || user?.rol;
+
+      if (rol !== "CLIENTE" && rol !== "EMPLEADO") {
+        alert("Tu rol no puede crear carritos.");
+        return;
+      }
+
+      const tipoCompra = rol === "EMPLEADO" ? "LOCAL" : "ONLINE";
+
+      setAddingProductId(product.idProducto);
+
+      const cart = await getOrCreateActiveCart({
+        idUsuario: user.idUsuario,
+        tipoCompra,
+      });
+
+      await addCartItem({
+        idCarrito: cart.idCarrito,
+        idProducto: product.idProducto,
+        cantidad: 1,
+      });
+
+      alert("Producto agregado al carrito.");
+    } catch (err) {
+      console.error(err);
+      const message =
+        err?.response?.data?.message ||
+        err?.response?.data?.error ||
+        "No se pudo agregar el producto al carrito.";
+      alert(message);
+    } finally {
+      setAddingProductId(null);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-blue-100">
       <section className="mx-auto max-w-7xl px-6 py-10">
@@ -103,7 +152,13 @@ function ProductsPage() {
           </div>
         )}
 
-        {!loading && !error && <ProductGrid products={filteredProducts} />}
+        {!loading && !error && (
+          <ProductGrid
+            products={filteredProducts}
+            onAddToCart={handleAddToCart}
+            addingProductId={addingProductId}
+          />
+        )}
       </section>
     </div>
   );
