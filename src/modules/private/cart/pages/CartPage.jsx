@@ -8,10 +8,11 @@ import {
   updateCartItem,
 } from "../services/cartService";
 import { calculateCartSummary, formatMoney } from "../utils/cartUtils";
+import { useNavigate } from "react-router-dom";
 
 function CartPage() {
   const { isAuthenticated, user } = useAuth();
-
+  const navigate = useNavigate();
   const [cart, setCart] = useState(null);
   const rol = user?.rolPrincipal || user?.rol;
   const tipoCompraInicial = rol === "EMPLEADO" ? "LOCAL" : "ONLINE";
@@ -348,6 +349,7 @@ function CartPage() {
 
               <button
                 type="button"
+                onClick={() => navigate("/checkout")}
                 className="mt-6 w-full rounded-2xl bg-cyan-500 px-5 py-3 font-black text-white hover:bg-cyan-600"
               >
                 Continuar compra

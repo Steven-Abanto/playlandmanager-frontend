@@ -15,6 +15,7 @@ import AdminPromocionesPage from "../../modules/private/admin/pages/AdminPromoci
 import ServicesPage from "../../modules/public/servicios/pages/ServicesPage";
 
 import CartPage from "../../modules/private/cart/pages/CartPage";
+import CheckoutPage from "../../modules/private/checkout/pages/CheckoutPage";
 
 import PrivateRoute from "../../auth/PrivateRoute.jsx";
 
@@ -90,6 +91,15 @@ function AppRouter() {
         element={
           <PrivateRoute>
             <CartPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/checkout"
+        element={
+          <PrivateRoute>
+            <CheckoutPage />
           </PrivateRoute>
         }
       />
