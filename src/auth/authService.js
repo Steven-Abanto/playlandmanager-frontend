@@ -16,3 +16,8 @@ export const meRequest = async () => {
   const response = await api.get("/api/auth/me");
   return response.data;
 };
+
+export const registerClienteRequest = async (data) => {
+  const response = await api.post("/api/auth/registro/cliente", data);
+  return response.data;
+};

@@ -246,7 +246,10 @@ function LoginPage() {
             </form>
 
             <div className="mt-6 rounded-2xl bg-yellow-100 px-4 py-4 text-sm leading-6 text-black font-semibold">
-              ¿Aún no tienes cuenta? <span className="text-red-600">Haz click aquí</span>
+              ¿Aún no tienes cuenta?{" "}
+              <Link to="/registro" className="text-red-600">
+                Haz click aquí
+              </Link>
             </div>
           </div>
         </section>
