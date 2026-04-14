@@ -16,6 +16,9 @@ import ServicesPage from "../../modules/public/servicios/pages/ServicesPage";
 
 import CartPage from "../../modules/private/cart/pages/CartPage";
 import CheckoutPage from "../../modules/private/checkout/pages/CheckoutPage";
+import CajaPage from "../../modules/private/caja/pages/CajaPage";
+import BoletasPage from "../../modules/private/boletas/pages/BoletasPage";
+import BoletaDetailPage from "../../modules/private/boletas/pages/BoletaDetailPage";
 
 import PrivateRoute from "../../auth/PrivateRoute.jsx";
 
@@ -87,6 +90,15 @@ function AppRouter() {
       />
 
       <Route
+        path="/caja"
+        element={
+          <PrivateRoute>
+            <CajaPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
         path="/carrito"
         element={
           <PrivateRoute>
@@ -100,6 +112,24 @@ function AppRouter() {
         element={
           <PrivateRoute>
             <CheckoutPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/boletas"
+        element={
+          <PrivateRoute>
+            <BoletasPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/boletas/:idBoleta"
+        element={
+          <PrivateRoute>
+            <BoletaDetailPage />
           </PrivateRoute>
         }
       />

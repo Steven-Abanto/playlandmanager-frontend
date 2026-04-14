@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../auth/AuthContext";
+import { useCaja } from "../../modules/private/caja/hooks/useCaja";
 
 function PublicNavbar() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
 
   const { user, isAuthenticated, logout, hasRole } = useAuth();
+  const { caja, hasCajaAbierta } = useCaja();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,8 +37,8 @@ function PublicNavbar() {
             className="h-24 w-auto"
           />
         </button>
-        
-        {isAuthenticated && (hasRole("EMPLEADO") || hasRole("CLIENTE")) && (   
+
+        {isAuthenticated && (hasRole("EMPLEADO") || hasRole("CLIENTE")) && (
           <form onSubmit={handleSubmit} className="flex-1 max-w-xl">
             <input
               type="text"
@@ -70,23 +72,46 @@ function PublicNavbar() {
             Promociones
           </button>
 
+          {isAuthenticated && (hasRole("EMPLEADO") || hasRole("CLIENTE")) && (
+            <>
+              <button
+                onClick={() => navigate("/carrito")}
+                className="transition hover:opacity-80"
+              >
+                Carrito
+              </button>
 
-          {isAuthenticated && (hasRole("EMPLEADO") || hasRole("CLIENTE")) && (          
-            <button
-              onClick={() => navigate("/carrito")}
-              className="transition hover:opacity-80"
-            >
-              Carrito
-            </button>
+              <button
+                onClick={() => navigate("/boletas")}
+                className="transition hover:opacity-80"
+              >
+                Mis boletas
+              </button>
+            </>
           )}
 
-          {isAuthenticated && (hasRole("EMPLEADO") || hasRole("ADMIN")) && (
-            <button
-              onClick={() => navigate("/empleado/panel")}
-              className="transition hover:opacity-80"
-            >
-              Panel Empleado
-            </button>
+          {isAuthenticated && hasRole("EMPLEADO") && (
+            <>
+              <button
+                onClick={() => navigate("/caja")}
+                className={`rounded-full px-4 py-2 transition ${
+                  hasCajaAbierta
+                    ? "bg-green-500 text-white hover:bg-green-600"
+                    : "bg-yellow-400 text-black hover:bg-yellow-500"
+                }`}
+              >
+                {hasCajaAbierta
+                  ? `Caja: ${caja?.codCaja || "ABIERTA"}`
+                  : "Abrir caja"}
+              </button>
+
+              <button
+                onClick={() => navigate("/empleado/panel")}
+                className="transition hover:opacity-80"
+              >
+                Panel Empleado
+              </button>
+            </>
           )}
 
           {isAuthenticated && hasRole("ADMIN") && (

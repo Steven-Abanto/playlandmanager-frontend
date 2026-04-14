@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../auth/AuthContext";
+import { useCaja } from "../../caja/hooks/useCaja";
 import { getOrCreateActiveCart } from "../../cart/services/cartService";
 import { calculateCartSummary, formatMoney } from "../../cart/utils/cartUtils";
 import { createBoletaFromCarrito } from "../services/checkoutService";
@@ -8,12 +9,12 @@ import { createBoletaFromCarrito } from "../services/checkoutService";
 function CheckoutPage() {
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth();
+  const { caja, loading: cajaLoading, hasCajaAbierta } = useCaja();
 
   const rol = user?.rolPrincipal || user?.rol;
   const tipoCompra = rol === "EMPLEADO" ? "LOCAL" : "ONLINE";
 
   const [cart, setCart] = useState(null);
-  const [idCaja, setIdCaja] = useState("");
   const [tipoDocuVenta, setTipoDocuVenta] = useState("BOL");
   const [metodoPago, setMetodoPago] = useState("EFECTIVO");
   const [montoPago, setMontoPago] = useState("");
@@ -74,42 +75,49 @@ function CheckoutPage() {
       return;
     }
 
-    if (rol === "CLIENTE") {
-      alert("Con el backend actual, la compra online aún requiere idEmpleado e idCaja.");
-      return;
-    }
-
-    if (!idCaja) {
-      alert("Ingresa el idCaja.");
-      return;
-    }
-
-    if (!user?.idEmpleado) {
-      alert("No se encontró idEmpleado en tu sesión.");
-      return;
-    }
-
     if (!montoPago || Number(montoPago) <= 0) {
       alert("Ingresa un monto de pago válido.");
+      return;
+    }
+
+    if (rol === "EMPLEADO" && !hasCajaAbierta) {
+      alert("Debes abrir una caja antes de emitir una boleta.");
       return;
     }
 
     try {
       setSubmitting(true);
 
-      const boleta = await createBoletaFromCarrito({
-        idCarrito: cart.idCarrito,
-        idCaja: Number(idCaja),
-        idEmpleado: user.idEmpleado,
-        tipoDocuVenta,
-        idCliente: user?.idCliente ?? null,
-        pagos: [
-          {
-            metodoPago,
-            monto: Number(montoPago),
-          },
-        ],
-      });
+      const payload =
+        rol === "EMPLEADO"
+          ? {
+              idCarrito: cart.idCarrito,
+              idCaja: caja?.idCaja,
+              idEmpleado: user.idEmpleado,
+              tipoDocuVenta,
+              idCliente: user?.idCliente ?? null,
+              pagos: [
+                {
+                  metodoPago,
+                  monto: Number(montoPago),
+                },
+              ],
+            }
+          : {
+              idCarrito: cart.idCarrito,
+              idCaja: 1,
+              idEmpleado: null,
+              tipoDocuVenta,
+              idCliente: user?.idCliente,
+              pagos: [
+                {
+                  metodoPago,
+                  monto: Number(montoPago),
+                },
+              ],
+            };
+
+      const boleta = await createBoletaFromCarrito(payload);
 
       alert(`Compra registrada correctamente. Boleta: ${boleta.numeDocuVenta}`);
       navigate(`/boletas/${boleta.idBoleta}`);
@@ -150,19 +158,19 @@ function CheckoutPage() {
           </p>
         </div>
 
-        {loading && (
+        {(loading || cajaLoading) && (
           <div className="rounded-3xl bg-white p-10 text-center shadow-xl">
             <p className="text-lg font-bold text-black">Cargando checkout...</p>
           </div>
         )}
 
-        {!loading && error && (
+        {!loading && !cajaLoading && error && (
           <div className="rounded-3xl bg-red-100 p-10 text-center">
             <p className="text-lg font-bold text-red-700">{error}</p>
           </div>
         )}
 
-        {!loading && !error && detalles.length === 0 && (
+        {!loading && !cajaLoading && !error && detalles.length === 0 && (
           <div className="rounded-3xl bg-white p-10 text-center shadow-xl">
             <p className="text-lg font-bold text-black">
               No hay productos en el carrito.
@@ -170,7 +178,7 @@ function CheckoutPage() {
           </div>
         )}
 
-        {!loading && !error && detalles.length > 0 && (
+        {!loading && !cajaLoading && !error && detalles.length > 0 && (
           <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
             <div className="space-y-4">
               {detalles.map((item) => (
@@ -211,6 +219,19 @@ function CheckoutPage() {
                   </label>
                   <div className="rounded-2xl bg-slate-100 px-4 py-3 font-bold text-black">
                     {tipoCompra}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm font-black text-black">
+                    Caja asignada
+                  </label>
+                  <div className="rounded-2xl bg-slate-100 px-4 py-3 font-bold text-black">
+                    {rol === "CLIENTE"
+                      ? "CAJA_ONLINE (#1)"
+                      : hasCajaAbierta
+                      ? `${caja.codCaja} (#${caja.idCaja})`
+                      : "Sin caja abierta"}
                   </div>
                 </div>
 
@@ -258,25 +279,9 @@ function CheckoutPage() {
                   />
                 </div>
 
-                {rol === "EMPLEADO" ? (
-                  <div>
-                    <label className="mb-2 block text-sm font-black text-black">
-                      ID Caja
-                    </label>
-                    <input
-                      type="number"
-                      min="1"
-                      value={idCaja}
-                      onChange={(e) => setIdCaja(e.target.value)}
-                      className="w-full rounded-2xl border px-4 py-3 font-semibold outline-none focus:ring-4 focus:ring-emerald-200"
-                      placeholder="Ej. 1"
-                    />
-                  </div>
-                ) : (
+                {rol === "EMPLEADO" && !hasCajaAbierta && (
                   <div className="rounded-2xl bg-amber-100 px-4 py-3 text-sm font-bold text-amber-800">
-                    El backend actual aún requiere <code>idEmpleado</code> e{" "}
-                    <code>idCaja</code> para facturar desde carrito, por lo que el
-                    flujo final del cliente online todavía necesita ajuste backend.
+                    Debes abrir una caja antes de continuar con una compra LOCAL.
                   </div>
                 )}
 
@@ -305,7 +310,7 @@ function CheckoutPage() {
 
                 <button
                   type="submit"
-                  disabled={submitting || rol === "CLIENTE"}
+                  disabled={submitting || (rol === "EMPLEADO" && !hasCajaAbierta)}
                   className="w-full rounded-2xl bg-emerald-500 px-5 py-3 font-black text-white hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {submitting ? "Procesando..." : "Emitir boleta"}
