@@ -106,7 +106,7 @@ function CheckoutPage() {
           : {
               idCarrito: cart.idCarrito,
               idCaja: 1,
-              idEmpleado: null,
+              idEmpleado: 1,
               tipoDocuVenta,
               idCliente: user?.idCliente,
               pagos: [

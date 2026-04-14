@@ -138,18 +138,21 @@ function AdminPanelPage() {
                     y reportes del parque.
                   </p>
                 </div>
-              </div>
 
-              <div className="rounded-2xl bg-slate-50 p-5">
-                <p className="text-lg font-black text-black">
-                  Flujo recomendado de desarrollo
-                </p>
-                <p className="mt-2 text-sm font-semibold leading-6 text-gray-700">
-                  1. Productos<br />
-                  2. Promociones<br />
-                  3. Reservas<br />
-                  4. Ajustes operativos
-                </p>
+                <Link
+                  to="/admin/empleados"
+                  className="rounded-3xl bg-emerald-100 p-6 transition hover:-translate-y-1 hover:bg-emerald-200"
+                >
+                  <p className="text-sm font-black uppercase tracking-wide text-emerald-800">
+                    Personal
+                  </p>
+                  <h3 className="mt-2 text-2xl font-black text-black">
+                    Gestionar empleados
+                  </h3>
+                  <p className="mt-3 text-sm font-semibold leading-6 text-gray-700">
+                    Registra empleados, administradores y controla su estado.
+                  </p>
+                </Link>
               </div>
             </div>
           </section>
