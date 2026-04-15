@@ -1,14 +1,17 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../auth/AuthContext";
 import { useCaja } from "../../modules/private/caja/hooks/useCaja";
 
 function PublicNavbar() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const [isOperacionOpen, setIsOperacionOpen] = useState(false);
 
   const { user, isAuthenticated, logout, hasRole } = useAuth();
   const { caja, hasCajaAbierta } = useCaja();
+
+  const dropdownRef = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,6 +26,24 @@ function PublicNavbar() {
     logout();
     navigate("/");
   };
+
+  const goTo = (path) => {
+    setIsOperacionOpen(false);
+    navigate(path);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOperacionOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <header className="bg-cyan-400 shadow-lg">
@@ -105,19 +126,47 @@ function PublicNavbar() {
                   : "Abrir caja"}
               </button>
 
-              <button
-                onClick={() => navigate("/empleado/juegos-uso")}
-                className="transition hover:opacity-80"
-              >
-                Panel Juegos
-              </button>
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  type="button"
+                  onClick={() => setIsOperacionOpen((prev) => !prev)}
+                  className="rounded-full bg-white/15 px-4 py-2 transition hover:bg-white/25"
+                >
+                  Operación ▾
+                </button>
 
-              <button
-                onClick={() => navigate("/empleado/mantenimiento-juegos")}
-                className="transition hover:opacity-80"
-              >
-                Panel Mantenimiento
-              </button>
+                {isOperacionOpen && (
+                  <div className="absolute right-0 z-50 mt-2 w-56 overflow-hidden rounded-2xl bg-white shadow-2xl">
+                    <button
+                      onClick={() => goTo("/empleado/juegos-uso")}
+                      className="block w-full px-4 py-3 text-left text-sm font-bold text-slate-800 transition hover:bg-cyan-50"
+                    >
+                      Panel de juegos
+                    </button>
+
+                    <button
+                      onClick={() => goTo("/empleado/mantenimiento-juegos")}
+                      className="block w-full px-4 py-3 text-left text-sm font-bold text-slate-800 transition hover:bg-cyan-50"
+                    >
+                      Mantenimiento
+                    </button>
+
+                    <button
+                      onClick={() => goTo("/empleado/dashboard")}
+                      className="block w-full px-4 py-3 text-left text-sm font-bold text-slate-800 transition hover:bg-cyan-50"
+                    >
+                      Dashboard
+                    </button>
+
+                    <button
+                      onClick={() => goTo("/empleado/reportes")}
+                      className="block w-full px-4 py-3 text-left text-sm font-bold text-slate-800 transition hover:bg-cyan-50"
+                    >
+                      Reportes
+                    </button>
+                  </div>
+                )}
+              </div>
             </>
           )}
 

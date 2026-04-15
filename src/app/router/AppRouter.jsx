@@ -25,6 +25,8 @@ import AdminJuegosPage from "../../modules/private/admin/pages/AdminJuegosPage";
 
 import EmpleadoJuegosUsoPage from "../../modules/private/empleado/pages/EmpleadoJuegosUsoPage.jsx";
 import EmpleadoMantenimientoJuegosPage from "../../modules/private/empleado/pages/EmpleadoMantenimientosPage.jsx";
+import EmpleadoReportesPage from "../../modules/private/empleado/pages/EmpleadoReportesPage.jsx";
+import EmpleadoDashboardPage from "../../modules/private/empleado/pages/EmpleadoDashboardPage.jsx";
 
 import PrivateRoute from "../../auth/PrivateRoute.jsx";
 
@@ -128,6 +130,24 @@ function AppRouter() {
         element={
           <PrivateRoute>
             <EmpleadoMantenimientoJuegosPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/empleado/dashboard"
+        element={
+          <PrivateRoute>
+            <EmpleadoDashboardPage />
+          </PrivateRoute>
+        }
+      />
+
+            <Route
+        path="/empleado/reportes"
+        element={
+          <PrivateRoute>
+            <EmpleadoReportesPage />
           </PrivateRoute>
         }
       />

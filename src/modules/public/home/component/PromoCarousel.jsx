@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 
 const promos = [
-  { id: 1, title: "Promoción 1", image: "https://picsum.photos/1000/300", target: "/promociones/1" },
-  { id: 2, title: "Promoción 2", image: "https://picsum.photos/1000/300", target: "/promociones/2" },
-  { id: 3, title: "Promoción 3", image: "https://picsum.photos/1000/300", target: "/productos/3" },
-  { id: 4, title: "Promoción 4", image: "https://picsum.photos/1000/300", target: "/productos/4" },
+  { id: 1, title: "Promoción 1", image: "https://instagram.flim30-1.fna.fbcdn.net/v/t39.30808-6/476834670_655440843662995_7618678214351786380_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=110&ig_cache_key=MzA0MzQ0NjY5MjQzMTMwNzI3Nw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjIwNDh4MTM2NS5zZHIuQzMifQ%3D%3D&_nc_ohc=6L28OrpYJegQ7kNvwHctpx4&_nc_oc=AdqvWt1sGxYTcgRRwflMYHZp44_66bhau3m6MC33Y1jLpxtacndEJcopySq9X-tT7AprTYFF_cg10uZ3TBUsEe1J&_nc_ad=z-m&_nc_cid=1465&_nc_zt=23&_nc_ht=instagram.flim30-1.fna&_nc_gid=OqcP0FeK7r3t_JmCiW_SOg&_nc_ss=7a32e&oh=00_Af3TdviL9KQG0LEuVPYtJgbwTz40lu2qcEfzAVs8CYk_iA&oe=69E4CE79", target: "/promociones/1" },
+  { id: 2, title: "Promoción 2", image: "https://instagram.flim30-1.fna.fbcdn.net/v/t39.30808-6/479189288_655440806996332_5730891265835793857_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=101&ig_cache_key=MzA0MzQ0NjY5MjQyMjg4ODIyOA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjIwNDh4MTM2NS5zZHIuQzMifQ%3D%3D&_nc_ohc=IYvHgsJEJ8IQ7kNvwFFJbYN&_nc_oc=Adr3NkNoEj0nDVj8aGlURJbGvoeConjF0snzqBeHcJl4-EPOJr1WZ7dKGefIhgV-LwODBoNs1wGx_yAaf8C5tu_A&_nc_ad=z-m&_nc_cid=1465&_nc_zt=23&_nc_ht=instagram.flim30-1.fna&_nc_gid=OqcP0FeK7r3t_JmCiW_SOg&_nc_ss=7a32e&oh=00_Af0WZmVZrFEcqGdlaQbSA8ub-_bRA34ENq9__36uRaRqqQ&oe=69E4D02B", target: "/promociones/2" },
+  { id: 3, title: "Promoción 3", image: "https://instagram.flim30-1.fna.fbcdn.net/v/t39.30808-6/476829457_655440920329654_8010352033053511907_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=102&ig_cache_key=MzA0MzQ0NjY5MjExMjU4NjkzMA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjIwNDh4MTM2NS5zZHIuQzMifQ%3D%3D&_nc_ohc=rvI3KU7jzLwQ7kNvwHGtW7c&_nc_oc=AdratQaXD_TMuB5Prlqsw1vE8LLUVtd0rdQ8OLvkUczZ-Se1zlOYQx4QLBQRcyh4Cp5J3Q4RwB9At3xAwT3QosFR&_nc_ad=z-m&_nc_cid=1465&_nc_zt=23&_nc_ht=instagram.flim30-1.fna&_nc_gid=OqcP0FeK7r3t_JmCiW_SOg&_nc_ss=7a32e&oh=00_Af2xoS8aevA4lWuOoaA68n7Lf6soGxZsUoQ2s5bIqBTcgA&oe=69E4C586", target: "/productos/3" },
 ];
 
 function PromoCarousel() {
