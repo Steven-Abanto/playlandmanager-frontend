@@ -126,19 +126,6 @@ function AdminPanelPage() {
                   </p>
                 </Link>
 
-                <div className="rounded-3xl bg-slate-100 p-6">
-                  <p className="text-sm font-black uppercase tracking-wide text-slate-700">
-                    Próximamente
-                  </p>
-                  <h3 className="mt-2 text-2xl font-black text-black">
-                    Reservas y reportes
-                  </h3>
-                  <p className="mt-3 text-sm font-semibold leading-6 text-gray-700">
-                    Más adelante podrás administrar reservas, atención operativa
-                    y reportes del parque.
-                  </p>
-                </div>
-
                 <Link
                   to="/admin/empleados"
                   className="rounded-3xl bg-emerald-100 p-6 transition hover:-translate-y-1 hover:bg-emerald-200"
@@ -153,6 +140,34 @@ function AdminPanelPage() {
                     Registra empleados, administradores y controla su estado.
                   </p>
                 </Link>
+
+                <Link
+                  to="/admin/juegos"
+                  className="rounded-3xl bg-fuchsia-100 p-6 transition hover:-translate-y-1 hover:bg-fuchsia-200"
+                >
+                  <p className="text-sm font-black uppercase tracking-wide text-fuchsia-800">
+                    Operación
+                  </p>
+                  <h3 className="mt-2 text-2xl font-black text-black">
+                    Gestionar juegos
+                  </h3>
+                  <p className="mt-3 text-sm font-semibold leading-6 text-gray-700">
+                    Administra juegos mecánicos, estado operativo y mantenimiento.
+                  </p>
+                </Link>
+
+                <div className="rounded-3xl bg-slate-100 p-6">
+                  <p className="text-sm font-black uppercase tracking-wide text-slate-700">
+                    Próximamente
+                  </p>
+                  <h3 className="mt-2 text-2xl font-black text-black">
+                    Reservas y reportes
+                  </h3>
+                  <p className="mt-3 text-sm font-semibold leading-6 text-gray-700">
+                    Más adelante podrás administrar reservas, atención operativa
+                    y reportes del parque.
+                  </p>
+                </div>
               </div>
             </div>
           </section>

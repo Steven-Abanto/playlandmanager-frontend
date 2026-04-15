@@ -21,6 +21,7 @@ import BoletasPage from "../../modules/private/boletas/pages/BoletasPage";
 import BoletaDetailPage from "../../modules/private/boletas/pages/BoletaDetailPage";
 
 import AdminEmpleadosPage from "../../modules/private/admin/pages/AdminEmpleadosPage";
+import AdminJuegosPage from "../../modules/private/admin/pages/AdminJuegosPage";
 
 import PrivateRoute from "../../auth/PrivateRoute.jsx";
 
@@ -96,6 +97,15 @@ function AppRouter() {
         element={
           <PrivateRoute roles={["ADMIN"]}>
             <AdminEmpleadosPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/admin/juegos"
+        element={
+          <PrivateRoute roles={["ADMIN"]}>
+            <AdminJuegosPage />
           </PrivateRoute>
         }
       />
