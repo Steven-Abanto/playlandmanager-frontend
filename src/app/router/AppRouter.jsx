@@ -23,7 +23,11 @@ import BoletaDetailPage from "../../modules/private/boletas/pages/BoletaDetailPa
 import AdminEmpleadosPage from "../../modules/private/admin/pages/AdminEmpleadosPage";
 import AdminJuegosPage from "../../modules/private/admin/pages/AdminJuegosPage";
 
+import EmpleadoJuegosUsoPage from "../../modules/private/empleado/pages/EmpleadoJuegosUsoPage.jsx";
+import EmpleadoMantenimientoJuegosPage from "../../modules/private/empleado/pages/EmpleadoMantenimientosPage.jsx";
+
 import PrivateRoute from "../../auth/PrivateRoute.jsx";
+
 
 function AppRouter() {
   return (
@@ -106,6 +110,24 @@ function AppRouter() {
         element={
           <PrivateRoute roles={["ADMIN"]}>
             <AdminJuegosPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/empleado/juegos-uso"
+        element={
+          <PrivateRoute>
+            <EmpleadoJuegosUsoPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/empleado/mantenimiento-juegos"
+        element={
+          <PrivateRoute>
+            <EmpleadoMantenimientoJuegosPage />
           </PrivateRoute>
         }
       />

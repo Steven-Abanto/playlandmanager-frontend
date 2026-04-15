@@ -106,10 +106,17 @@ function PublicNavbar() {
               </button>
 
               <button
-                onClick={() => navigate("/empleado/panel")}
+                onClick={() => navigate("/empleado/juegos-uso")}
                 className="transition hover:opacity-80"
               >
-                Panel Empleado
+                Panel Juegos
+              </button>
+
+              <button
+                onClick={() => navigate("/empleado/mantenimiento-juegos")}
+                className="transition hover:opacity-80"
+              >
+                Panel Mantenimiento
               </button>
             </>
           )}
